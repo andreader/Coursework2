@@ -30,18 +30,6 @@ public class ExaminerServiceImplTest {
         examinerService = new ExaminerServiceImpl(questionService);
     }
 
-    @Test
-    public void getQuestions_whenAmountZero_shouldReturnEmptyCollection() {
-        // given
-        int amount = 0;
-        when(questionService.getAll()).thenReturn(List.of());
-
-        // when
-        Collection<Question> questions = examinerService.getQuestions(amount);
-
-        // then
-        assertThat(questions.isEmpty()).isTrue();
-    }
 
     @Test
     public void getQuestions_whenAmountIsNegative_shouldThrowZeroArgumentException() {
@@ -49,8 +37,6 @@ public class ExaminerServiceImplTest {
         int amount = -1;
 
         // when
-        when(questionService.getAll()).thenReturn(List.of());
-
         // then
         assertThrows(ZeroArgumentException.class, () -> examinerService.getQuestions(amount));
     }

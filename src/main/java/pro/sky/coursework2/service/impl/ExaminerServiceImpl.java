@@ -18,7 +18,7 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Override
     public Collection<Question> getQuestions(int amount) {
-        if (amount < 0) {
+        if (amount <= 0) {
             throw new ZeroArgumentException("Количество вопросов должно быть больше нуля!");
         }
         if (amount > questionService.getAll().size()) {

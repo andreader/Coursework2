@@ -15,7 +15,7 @@ public class JavaQuestionController {
 
     @PostMapping("/add")
     public Question addQuestion(@RequestBody Question question) {
-        return questionService.add(question.getQuestion(), question.getAnswer());
+        return questionService.add(question);
     }
 
     @GetMapping("/find")
