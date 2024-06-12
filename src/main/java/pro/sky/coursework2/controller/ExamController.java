@@ -8,7 +8,7 @@ import pro.sky.coursework2.service.ExaminerService;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("exam")
+@RequestMapping("/exam")
 @RequiredArgsConstructor
 public class ExamController {
     private final ExaminerService examinerService;

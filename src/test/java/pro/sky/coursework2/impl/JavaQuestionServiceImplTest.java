@@ -7,22 +7,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.coursework2.model.Question;
+import pro.sky.coursework2.service.impl.JavaQuestionServiceImpl;
+
 import java.util.*;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
 class JavaQuestionServiceImplTest {
 
-    @Mock
-    private JavaQuestionServiceImpl service;
-    private Set<Question> questions = new HashSet<>();
+    private final JavaQuestionServiceImpl service = new JavaQuestionServiceImpl();
+    private final Set<Question> questions = new HashSet<>();
 
-    @BeforeEach
-    void setUp() {
-        questions = new HashSet<>();
-        service = new JavaQuestionServiceImpl();
-    }
 
     // Проверка метода add(String question, String answer)
     @Test
@@ -63,9 +59,9 @@ class JavaQuestionServiceImplTest {
     @DisplayName("Should return all questions")
     void shouldReturnAllQuestions() {
         // given
-        questions.add(new Question("вопрос1", "ответ1"));
-        questions.add(new Question("вопрос2", "ответ2"));
-        service.questions.addAll(questions);
+        service.add(new Question("вопрос1", "ответ1"));
+        service.add(new Question("вопрос2", "ответ2"));
+
 
         // when
         Collection<Question> allQuestions = service.getAll();
@@ -82,7 +78,7 @@ class JavaQuestionServiceImplTest {
     void shouldRemoveAQuestion() {
         // given
         Question question = new Question("вопрос1", "ответ1");
-        service.questions.add(question);
+        service.add(question);
 
         // when
         Question removedQuestion = service.remove(question);
@@ -99,7 +95,7 @@ class JavaQuestionServiceImplTest {
     void shouldFindAQuestionByQuestionAndAnswer() {
         // given
         Question question = new Question("вопрос1", "ответ1");
-        service.questions.add(question);
+        service.add(question);
 
         // when
         Question foundQuestion = service.findQuestion(question.getQuestion(), question.getAnswer());
@@ -114,8 +110,6 @@ class JavaQuestionServiceImplTest {
     @DisplayName("Should throw an exception when question not found")
     void shouldThrowAnExceptionWhenQuestionNotFound() {
         // given
-        service.questions.addAll(questions);
-
         // when
         assertThrows(NoSuchElementException.class, () -> service.findQuestion("несуществующий вопрос", "несуществующий ответ"));
     }

@@ -14,13 +14,13 @@ public class JavaQuestionController {
     private final QuestionService questionService;
 
     @PostMapping("/add")
-    public Question addQuestion(@RequestParam String question, @RequestParam String answer) {
-        return questionService.add(question, answer);
+    public Question addQuestion(@RequestBody Question question) {
+        return questionService.add(question.getQuestion(), question.getAnswer());
     }
 
     @GetMapping("/find")
-    public Question findQuestion(@RequestParam String question, @RequestParam String answer) {
-        return questionService.findQuestion(question, answer);
+    public Question findQuestion(@RequestBody Question question) {
+        return questionService.findQuestion(question.getQuestion(), question.getAnswer());
     }
 
     @DeleteMapping("/remove")

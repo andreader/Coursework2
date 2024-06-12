@@ -1,4 +1,4 @@
-package pro.sky.coursework2.impl;
+package pro.sky.coursework2.service.impl;
 
 import org.springframework.stereotype.Service;
 import pro.sky.coursework2.model.Question;
@@ -8,7 +8,7 @@ import java.util.*;
 
 @Service
 public class JavaQuestionServiceImpl implements QuestionService {
-    final Set<Question> questions = new HashSet<>();
+    private final Set<Question> questions = new HashSet<>();
     private final Random random = new Random();
 
     @Override

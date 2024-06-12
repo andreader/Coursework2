@@ -6,14 +6,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.coursework2.exception.QuestionStorageLessThanRequested;
+import pro.sky.coursework2.exception.ZeroArgumentException;
 import pro.sky.coursework2.model.Question;
 import pro.sky.coursework2.service.QuestionService;
+import pro.sky.coursework2.service.impl.ExaminerServiceImpl;
 
 import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +29,32 @@ public class ExaminerServiceImplTest {
     public void setUp() {
         examinerService = new ExaminerServiceImpl(questionService);
     }
+
+    @Test
+    public void getQuestions_whenAmountZero_shouldReturnEmptyCollection() {
+        // given
+        int amount = 0;
+        when(questionService.getAll()).thenReturn(List.of());
+
+        // when
+        Collection<Question> questions = examinerService.getQuestions(amount);
+
+        // then
+        assertThat(questions.isEmpty()).isTrue();
+    }
+
+    @Test
+    public void getQuestions_whenAmountIsNegative_shouldThrowZeroArgumentException() {
+        // given
+        int amount = -1;
+
+        // when
+        when(questionService.getAll()).thenReturn(List.of());
+
+        // then
+        assertThrows(ZeroArgumentException.class, () -> examinerService.getQuestions(amount));
+    }
+
 
     @Test
     public void getQuestions_whenAmountLessThanStored_shouldReturnQuestions() {
